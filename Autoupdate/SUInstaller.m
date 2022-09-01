@@ -130,13 +130,7 @@
     // ahead of time whether or not this installer tool should be ran as root or not
     id <SUInstallerProtocol> installer = nil;
     if (isPackage && isGuided) {
-        if (![expectedInstallationType isEqualToString:SPUInstallationTypeGuidedPackage]) {
-            if (error != NULL) {
-                *error = [NSError errorWithDomain:SUSparkleErrorDomain code:SUInstallationError userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Found guided package installer but '%@=%@' was probably missing in the appcast item enclosure", SUAppcastAttributeInstallationType, SPUInstallationTypeGuidedPackage] }];
-            }
-        } else {
-            installer = [[SUGuidedPackageInstaller alloc] initWithPackagePath:newDownloadPath homeDirectory:homeDirectory userName:userName];
-        }
+        installer = [[SUGuidedPackageInstaller alloc] initWithPackagePath:newDownloadPath homeDirectory:homeDirectory userName:userName];
     } else if (isPackage) {
         if (![expectedInstallationType isEqualToString:SPUInstallationTypeInteractivePackage]) {
             if (error != NULL) {
